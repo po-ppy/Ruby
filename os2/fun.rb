@@ -2,33 +2,45 @@
 # _*_ coding: UTF-8 _*_
 $LOAD_PATH << '.'
 require 'jobs'
+require 'thread'
 $now = Time.now
 $now2 = Time.now
 $now3 = Time.now
+@mutex = Mutex.new
 class Fcfs
 
 	def initialize(ary)
-		@ary = ary.compact
+		@@ary = ary.compact
+		@@finishNum = 0
+		@@avg1 = 0
+		@@avg2 = 0
 	end
 	def run
-		now = Time.now
-		avg1 = 0
-		avg2 = 0
 		puts <<EOF
 作业名\t进入时间\t\t开始时间\t\t完成时间\t\t周转时间\t带权周转时间
 EOF
-		@ary.each do  |i|
-			i.setstarttime = now
-			now += i.j_ntime
-			i.setendtime = now
-			avg1 += i.j_endtime - i.j_intime
-			avg2 += (i.j_endtime - i.j_intime)/(i.j_endtime - i.j_starttime)
+		@mutex.lock
+		@@ary.each do  |i|
+			if i.j_status == "W" then
+			i.setstarttime = $now
+			$now += i.j_ntime
+			i.setendtime = $now
+			@@avg1 += i.j_endtime - i.j_intime
+			@@avg2 += (i.j_endtime - i.j_intime)/(i.j_endtime - i.j_starttime)
 			i.displayInfo
+			i.setstatus = "F"
+			@@finishNum +=1
+			
+			end
 		end
-		avg1 /=@ary.size.to_f
-		avg2 /=@ary.size.to_f
-		puts "平均周转时间：#{avg1}\t平均带权周转时间：#{avg2}"
+		if @@finishNum == @@ary.size then
+			@@avg1 /=@@ary.size.to_f
+			@@avg2 /=@@ary.size.to_f
+			puts "平均周转时间：#{avg1}\t平均带权周转时间：#{avg2}"
+		end
+		@mutex.unlock
 	end
+
 end
 
 class Sjf

@@ -1,4 +1,5 @@
 #! /bin/ruby
+# _*_ coding:UTF-8 _*_
 class Job 
 	def initialize(name,ntime,resource,status,intime)
 		@j_name = name
