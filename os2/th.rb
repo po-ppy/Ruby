@@ -28,6 +28,7 @@ fcfs  = Fcfs.new(ary)
 3.times do 
 	Thread.new{	fcfs.run}
 end
+#some different
 =begin
 puts "SJF"
 sjf = Sjf.new(ary)
