@@ -25,9 +25,7 @@ $now3 = ary[0].j_intime
 
 puts "先来先服务"
 fcfs  = Fcfs.new(ary)
-3.times do 
-	Thread.new{	fcfs.run}
-end
+fcfs.run 5
 #some different
 =begin
 puts "SJF"

@@ -6,7 +6,7 @@ require 'thread'
 $now = Time.now
 $now2 = Time.now
 $now3 = Time.now
-@mutex = Mutex.new
+
 class Fcfs
 
 	def initialize(ary)
@@ -14,31 +14,88 @@ class Fcfs
 		@@finishNum = 0
 		@@avg1 = 0
 		@@avg2 = 0
+		@@mutex = Mutex.new
 	end
-	def run
+	#def minTime
+	#		if Thread.current["time"] == nil then
+	#			return nil
+	#		end
+	#		result = Time.now
+	#		Thread.list.each do |i|
+	#			if result.to_i > i["time"].to_i then
+	#				result = i["time"]
+	#			end
+	#		end
+	#		return result
+	#		
+	#end
+
+	def blockFun
+		while @@finishNum < @@ary.size do
+			#if Thread.current["time"] == minTime then
+			@@mutex.lock
+			@@ary.each do  |i|
+				if i.j_status == "W" || i.j_status=="w" then
+					#puts "线程号:#{Thread.current['id']}"
+					#i.setstarttime = timeAry[index]
+					#timeAry[index] += i.j_ntime
+					#i.setendtime = timeAry[index]
+					i.setstarttime = Thread.current["time"]
+					Thread.current["time"] += i.j_ntime
+					i.setendtime = Thread.current["time"]
+					@@avg1 += i.j_endtime - i.j_intime
+					@@avg2 += (i.j_endtime - i.j_intime)/(i.j_endtime - i.j_starttime)
+					#i.displayInfo
+					i.setstatus = "F"
+					@@finishNum +=1
+					break
+				end
+			end
+			
+			@@mutex.unlock
+			sleep 0.01
+		#else
+		#	Thread.pass
+		#end
+		end
+	end
+	def run(threadNum)
 		puts <<EOF
 作业名\t进入时间\t\t开始时间\t\t完成时间\t\t周转时间\t带权周转时间
 EOF
-		@mutex.lock
-		@@ary.each do  |i|
-			if i.j_status == "W" then
-			i.setstarttime = $now
-			$now += i.j_ntime
-			i.setendtime = $now
-			@@avg1 += i.j_endtime - i.j_intime
-			@@avg2 += (i.j_endtime - i.j_intime)/(i.j_endtime - i.j_starttime)
-			i.displayInfo
-			i.setstatus = "F"
-			@@finishNum +=1
-			
+		threadAry,timeAry = Array.new,Array.new
+		threadNum.times do
+			timeAry << $now
+		end
+		threadNum.times do |i|
+			threadAry << Thread.new do 
+				if Thread.current["time"] == nil then
+					Thread.current["time"] = $now
+				end
+				if Thread.current["id"] == nil then
+					Thread.current["id"] = i
+				end
+ 				blockFun
 			end
 		end
-		if @@finishNum == @@ary.size then
-			@@avg1 /=@@ary.size.to_f
-			@@avg2 /=@@ary.size.to_f
-			puts "平均周转时间：#{avg1}\t平均带权周转时间：#{avg2}"
+		
+		threadAry.each do |i|
+			i.join
+			#puts "jion#{i}"
 		end
-		@mutex.unlock
+
+		if @@finishNum == @@ary.size then
+				@@ary.sort!{
+					|a,b|
+					a.j_starttime <=> b.j_starttime
+				}
+				@@ary.each do |i|
+					i.displayInfo
+				end
+				@@avg1 /=@@ary.size.to_f
+				@@avg2 /=@@ary.size.to_f
+				puts "平均周转时间：#{@@avg1}\t平均带权周转时间：#{@@avg2}"
+		end
 	end
 
 end
