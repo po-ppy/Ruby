@@ -13,12 +13,9 @@
 #! /bin/ruby
 #_*_ coding:UTF-8 _*_
 require 'net/http'
+require 'json'
 
-kqurl = "http://kqapp.nwsuaf.edu.cn"
-posturl = "/signing.ashx"
-url = "http://kqapp.nwsuaf.edu.cn/signing.ashx"
-
-$StudentId = "YB5764489";
+$StudentId = "YB5764485";#YB5764489
 $PlanId = "ff";
 $SchoolCode = "10712";
 postdata = Hash[
@@ -33,18 +30,23 @@ postdata = Hash[
           "PlanId"=> $PlanId,
           "SchoolCode"=> $SchoolCode]
 
-#postdata.each do |key,value|
-#     puts "key:#{key},value#{value}"
-#end
+uri = URI('http://kqapp.nwsuaf.edu.cn/signing.ashx')
+req = Net::HTTP::Post.new(uri.path)
+req.set_form_data(postdata)
 
-strdata = "ZoneLng=108.072368&ZoneLat=34.28446&ZoneRadius=35.0&StartTime=startTime&EndTime=endTime&UserLng=108.072368&UserLat=34.28446&StudentId=#{$StudentId}&PlanId=#{$PlanId}&SchoolCode=#{$SchoolCode}"
-puts strdata
+http = Net::HTTP.new(uri.hostname,uri.port)
 
- #http = Net::HTTP.new(kqurl)
+response = http.request(req)
 
-#response = http.request_post(posturl,strdata)
-#
+jjj = JSON.parse response.body
 #puts response.body
-
-
+if jjj['Success'] then
+     puts jjj["Msg"]
+     #msg = "echo #{jjj["Msg"]} | mutt #{emailAddr} -s #{Time.now}签到 "
+     #system msg
+else
+     puts jjj["Msg"]
+     #msg = "echo #{jjj["Msg"]} | mutt #{emailAddr} -s #{Time.now}签到 "
+     #system msg
+end
 
