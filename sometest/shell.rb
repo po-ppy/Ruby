@@ -11,7 +11,10 @@ postdata = Hash[
           "UserLat"=>"34.28446",
           "StudentId"=>$StudentId,
           "PlanId"=> $PlanId,
-          "SchoolCode"=> $SchoolCode]
+          "SchoolCode"=> $SchoolCode
+      ]
 
 cmd = "echo #{postdata['ZoneLng']}"
 system cmd
+
+

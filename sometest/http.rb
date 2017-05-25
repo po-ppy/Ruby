@@ -5,17 +5,6 @@ require 'net/http'
 require 'json'
 require 'digest/md5'
 
-#hp = Net::HTTP.new('202.117.179.110')
-#
-#response = hp.post('/Download.jsp','FileName=4mu_CCmUlhiUFpPtm27GqOx85erzCU4qJYtItjQTbNmNsnFDIcAzB6JakitYebcS-7QIMzFuCmcVFv5YzCPKPtbA61FQzmfIhPOC96lDHz7gpoINPR1tRA')
-#
-#fp = File.open("http.doc", "w")
-#fp.write response.body
-#emailAddr = "1176667078@qq.com"
-#$StudentId = "YB5764485";#YB5764489
-#$PlanId = "ff";
-#$SchoolCode = "10712";
-
 $appid = "20170524000049027"
 $key = "YEQJJfACwt9FLvXpcq0y"
 $map=Hash[
@@ -53,7 +42,7 @@ $map=Hash[
 $transStr = "我是中国人"
 
 postdata = Hash[
-          	"q"	=>$transStr,		#TEXT	Y	请求翻译query	UTF-8编码
+          	"q"	=>ARGV[0],		#TEXT	Y	请求翻译query	UTF-8编码
 			"from"=>$map["中文"]	,	#TEXT	Y	翻译源语言	语言列表(可设置为auto)
 			"to"=>$map["英语"],		#TEXT	Y	译文语言	语言列表(不可设置为auto)
 			"appid"=>$appid,		#INT	Y	APP ID	可在管理控制台查看
@@ -79,23 +68,10 @@ response = http.request(req)
 #puts response.body
 
 result = JSON.parse response.body
-puts response.body
+#puts response.body
 
-puts postdata
-#second = JSON.parse result['trans_result'] #.chop!.reverse.chop!.reverse
-puts result['trans_result']
-#puts second['dst']
-
-#jjj = JSON.parse response.body
-#
-#if jjj['Success'] then
-#	puts jjj["Msg"]
-#	msg = "echo #{jjj["Msg"]} | mutt #{emailAddr} -s #{Time.now}签到 "
-#	system msg
-#else
-#	puts jjj["Msg"]
-#	msg = "echo #{jjj["Msg"]} | mutt #{emailAddr} -s #{Time.now}签到 "
-#	system msg
-#end
-
+#puts postdata
+#second = result['trans_result'].to_s.sub!(/[\{\[\]\}]/,"").split("=>")
+second = result['trans_result'].to_s.split("=>")
+puts second.last.chop.chop
 
