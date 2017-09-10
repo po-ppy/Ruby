@@ -31,9 +31,13 @@ def perm2(ary,k)
   end
 end
 
+puts "初始numAry"
+puts numAry.join(' ')
 puts "使用perm运行结果"
 perm(numAry,numAry.size)
 puts "现在的numAry"
 puts numAry.join(' ')
 puts "使用perm2的运行结果"
 perm2(numAry,0)
+puts "现在的numAry"
+puts numAry.join(' ')
