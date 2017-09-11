@@ -1,6 +1,7 @@
 #_*_ coding:utf-8 _*_
 @set = Array.new(100,0)
 @k = 0
+@count = 0
 
 def printPartition(n,m,i)
   if n == @k && n != m
@@ -10,12 +11,14 @@ def printPartition(n,m,i)
 
   if n == 1
     print "1 "
+    @count += 1
     return
   elsif m == 1
     (1...n).each do 
       print "1+"
     end
     print "1 "
+    @count += 1
     return
   end
   if n < m
@@ -23,6 +26,7 @@ def printPartition(n,m,i)
   end
   if n == m
     print "#{n} "
+    @count += 1
     (0...i).each do |j|
       print "#{@set[j]}+"
     end
@@ -44,3 +48,4 @@ end
 @k = gets.to_i
 printPartition(@k,@k,0)
 puts ""
+puts "总个数为:#{@count}"
