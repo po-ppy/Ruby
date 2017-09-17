@@ -1,5 +1,6 @@
 #! /bin/ruby
 #_*_ coding:utf-8 _*_
+require './config'
 require 'mysql2'
 
 #deviceid = gets.to_s.rstrip!
