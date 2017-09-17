@@ -1,17 +1,17 @@
 #! C:\Ruby23-x64\bin\ruby -w
 #_*_ coding:utf-8 _*_
-#puts "Hello, Ruby!";
-print <<EOF
-    Ð´×Ö·û´®ºÃ¼¸ÐÐ
-EOF
 
-print <<'EOC'
-	echo hi there
-	echo lo there
-EOC
+require 'matrix'
 
-print <<"foo",<<"bar"
-	I said foo.
-foo
-	I said bar.
-bar
+max = Matrix.zero(6)
+
+puts max
+ary = [1,2,3,4,4,4]
+hash = { :hello => "hello_hash" , :world => "world_hash" , "haha" => "hahah_hash"}
+
+ary = ary - [1,2,3,4] 
+puts ary.size
+puts Float::MAX
+#puts ary.index ary.max
+
+
