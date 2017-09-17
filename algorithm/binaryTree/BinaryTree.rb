@@ -1,5 +1,6 @@
 #_*_ coding:utf-8 _*_
 
+
 module BinaryTree
   class Node
     attr_accessor :value, :symbol, :left, :right
@@ -39,4 +40,5 @@ module BinaryTree
       (not @left and not @right)
     end
   end
+
 end
