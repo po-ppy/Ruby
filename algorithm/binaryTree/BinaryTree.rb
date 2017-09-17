@@ -18,12 +18,12 @@ module BinaryTree
           @left.visit(order,&block) if left
           @right.visit(order,&block) if right
 
-        when
+        when :inorder
           @left.visit(order,&block) if left
           yield self
           @right.visit(order,&block) if right
 
-        when
+        when :postorder
           @left.visit(order,&block) if left
           @right.visit(order,&block) if right
           yield self
