@@ -3,7 +3,7 @@
 
 module BinaryTree
   class Node
-    attr_accessor :value, :symbol, :left, :right
+    attr_accessor :value, :symbol, :left, :right,:self
 
     def initialize(value = nil, symbol = nil, left = nil, right = nil)
       raise StandardError.new "must have a value!" if not value
@@ -39,6 +39,46 @@ module BinaryTree
     def leaf?
       (not @left and not @right)
     end
-  end
+
+  end#the end of Node
+
+  class  Tree
+
+    def self.create_by_str(str)
+      result = Node.new('^')
+      p = Node.new('^')
+      t = Node.new('^')
+      k = 0
+      tempAry = []
+      str.each_char do |ch|
+        case ch
+          when '('
+            tempAry.push(p)
+            k = 1
+      
+          when ')'
+            t = tempAry.pop
+      
+          when ','
+            k = 2
+      
+          else
+            p = Node.new(ch)
+            if result.value == '^'
+              result = p
+            elsif k == 1
+              t = tempAry.pop
+              t.left = p
+              tempAry.push(t)
+            else
+              t = tempAry.pop
+              t.right = p
+              tempAry.push(t)
+            end
+        end
+      end
+     return result
+    end
+  end #the end of Tree
 
 end
