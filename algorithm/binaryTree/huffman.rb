@@ -1,0 +1,15 @@
+#_*_ coding:utf-8 _*_
+require './default_tree'
+require './BinaryTree'
+
+include BinaryTree
+
+
+@huffman_str = "aaaaabbbbbbbbbbbbbbbbbbbbbbbbbbbbbcccccccddddddddeeeeeeeeeeeeeefffffffffffffffffffffffggghhhhhhhhhhh"
+
+@str_to_decode = "0001000100010001000110101010101010101010101010101010101010101010101010101010101110111011101110111011101110111111111111111111111111111111111101101101101101101101101101101101101101100101010101010101010101010101010101010101010101000000000000001001001001001001001001001001001"
+huffmanTree = Huffman.create_by_str(@huffman_str)
+
+puts huffmanTree.encode_str(@huffman_str)
+
+puts huffmanTree.decode_str(@str_to_decode)
