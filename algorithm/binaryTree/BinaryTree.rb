@@ -3,11 +3,11 @@
 
 module BinaryTree
   class Node
-    attr_accessor :value, :symbol, :left, :right,:self
+    attr_accessor :value, :symbol, :left, :right,:self,:parent
 
-    def initialize(value = nil, symbol = nil, left = nil, right = nil)
+    def initialize(value = nil, symbol = nil, left = nil, right = nil, parent = nil)
       raise StandardError.new "must have a value!" if not value
-      @value,@symbol,@left,@right = value,symbol,left,right
+      @value,@symbol,@left,@right,@parent = value,symbol,left,right,parent
     end
 
     def visit(order = :preorder, &block)
@@ -32,19 +32,19 @@ module BinaryTree
 
     def visit_and_map(order = :preorder,&block)
       ary = []
-      visit(order){|node| array << yield(node)}
-      array
+      visit(order){|node| ary << yield(node)}
+      ary
     end
 
     def leaf?
       (not @left and not @right)
     end
 
-  end#the end of Node
+  end   #the end of Node
 
   class  Tree
 
-    def self.create_by_str(str)
+    def self.create_by_str(str,hasParent = false)
       result = Node.new('^')
       p = Node.new('^')
       t = Node.new('^')
@@ -65,20 +65,27 @@ module BinaryTree
           else
             p = Node.new(ch)
             if result.value == '^'
+              p.symbol = "root"
               result = p
             elsif k == 1
               t = tempAry.pop
               t.left = p
+              if hasParent
+                p.parent = t
+              end
               tempAry.push(t)
             else
               t = tempAry.pop
               t.right = p
+              if hasParent
+                p.parent = t
+              end
               tempAry.push(t)
             end
         end
       end
      return result
     end
-  end #the end of Tree
+  end  #the end of Tree
 
 end
