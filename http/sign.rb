@@ -18,6 +18,7 @@ def sign(name_id_hash)
         puts res.body
     else
       puts "PlanId.size != 32  !!!!!!!!!!!"
+      break
     end
   end
 end
