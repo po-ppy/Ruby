@@ -14,3 +14,15 @@ else
 	puts "x < 3 is true,so you will see me"
 end
 puts "unless x < 3,you see me" unless x < 3
+
+class Helper
+	def initialize(time)
+		@time = time
+	end
+	def echo
+		puts @time
+	end
+end
+
+temp = Helper.new("haha")
+temp.echo
