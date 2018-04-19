@@ -20,6 +20,7 @@ def sign(name_id_hash)
         puts res.body
     elsif planId == ''
       puts "不需要签到"
+      puts res.body
       break
     else
       puts "PlanId.size != 32  !!!!!!!!!!!"
