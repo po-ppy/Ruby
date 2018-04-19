@@ -1,0 +1,273 @@
+
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="apple-mobile-web-app-capable" content="yes" /><meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" /><title>
+	点名签到
+</title><link href="resources/bootstrap/css/bootstrap.min.css" rel="stylesheet" /><link href="resources/bootstrap/css/bootstrap-theme.min.css" rel="stylesheet" /><link href="resources/bootstrap/css/font-awesome.min.css" rel="stylesheet" />
+    <style type="text/css">
+        html {
+            margin: 0px;
+            padding: 0px;
+        }
+
+        body {
+            background-color: transparent;
+            /*font-size: 12px;*/
+            font: 12px/1.5 宋体, Arial, sans-serif;
+            overflow: auto;
+            margin: 0px;
+            padding: 0px;
+        }
+
+        .main-container {
+            padding: 6px;
+        }
+
+        .page-header {
+            margin-top: 20px;
+            margin-bottom: 2px;
+        }
+        /*模块阴影*/
+        .box-show {
+            box-shadow: 0px 2px 6px rgba(150, 152, 153, 0.3);
+            border: 1px solid #dddddd;
+            min-height: 330px;
+            background-color: #ffffff;
+        }
+
+            .box-show .panel {
+                box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.05);
+            }
+
+                .box-show .panel .panel-body {
+                    padding: 0px 10px;
+                }
+
+        .main-title {
+            border-left: 3px solid #3D9CCC;
+            padding-left: 10px;
+            color: #000;
+            margin: 2px 0px;
+        }
+
+        .myvisiable {
+            display: none;
+        }
+
+        /*#region 点名签到样式*/
+        .bs-callout {
+            padding: 0px 20px 40px 20px;
+            border-width: 1px 1px 1px 4px;
+            border-style: solid;
+            border-color: #EEE;
+            -moz-border-top-colors: none;
+            -moz-border-right-colors: none;
+            -moz-border-bottom-colors: none;
+            -moz-border-left-colors: none;
+            border-radius: 3px;
+        }
+
+        .bs-callout-in {
+            border-left-color: #f59524;
+        }
+        /*警告*/
+        .bs-callout-danger {
+            /*color: #D44950;*/
+            color: #E7432F;
+        }
+        /*进行中*/
+        .bs-callout-in {
+            /*color: #D44950;*/
+            color: #ffa73f;
+        }
+        /*成功*/
+        .bs-callout-Success {
+            color: #008000;
+        }
+
+        .bs-callout-in h4 {
+            color: #ffa73f;
+        }
+
+        .bs-callout > p {
+            font-size: 12px;
+            line-height: 1.75;
+            margin-bottom: 5px;
+        }
+
+        #panNotplan .alert {
+            margin-left: 0px;
+            margin-right: 0px;
+            padding-left: 20px;
+        }
+
+        #panNotplan .alert-success {
+            border: 1px solid #D6E9C6;
+        }
+
+        #planDatelist .list-group-item {
+            text-align: center;
+            margin-bottom: 3px;
+        }
+        /*#endregion*/
+
+        /*#region 加载提示框样式*/
+        .loadingmask {
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            opacity: 0.55;
+            z-index: 4096;
+            /*background-color:#cccccc;*/
+        }
+
+            .loadingmask .lmpanel {
+                top: 49%;
+                left: 45%;
+                width: auto;
+                height: auto;
+                position: absolute;
+            }
+
+            .loadingmask .lmimage {
+                /*background-image: url("images/load.gif") !important;*/
+                background-repeat: no-repeat;
+                background-position: center !important;
+            }
+
+            .loadingmask .lmtext {
+                color: #E7432F;
+                font-size: larger;
+            }
+        /*#endregion*/
+    </style>
+    <script type="text/javascript">
+        ////var GlbVar = { zone: { GeoCenterLng: 108.863027, GeoCenterLat: 34.234227, GeoRadius: 500 } };
+        //var ifr = document.createElement('iframe');
+        //ifr.src = "cundong://splash";
+    </script>
+</head>
+<body>
+    <div class="container-fluid main-container">
+        <div class="container-fluid box-show">
+            <div class="page-header">
+                <h4 class="main-title">点名签到</h4>
+            </div>
+            <div class="panel-body myvisiable" id="pbody">
+                
+                
+                <div class="StudentInfo">
+                    <label>学院：</label><span id="lblXy"></span><br />
+                    <label>班级：</label><span id="lblBj"></span><br />
+                    <label>姓名：</label><span id="lblXm"></span><span id="lblQj" class="text-danger"></span><br />
+                </div>
+
+                
+                <div class="panel panel-info" id="panNotice" style="background-color: #F9F9F9; border: 1px dashed #cdcdcd; border-radius: 3px; padding: 0 20px 10px 20px;">
+                </div>
+                
+                <div id="panNotplan">
+                </div>
+                
+                <div class="bs-callout bs-callout-in" id="panSignin">
+                    <h4 id="planName"></h4>
+                    <p class="list-group-item-text">
+                        <strong id="sdate"></strong>
+                        <br />
+                        <span id="jsdjs" style="color: #7e7e7e"></span>
+                        <br />
+                        <span id="xxqdzt"></span>
+                    </p>
+                </div>
+                
+                <div class="btn-group pull-right">
+                    <button type="button" class="btn btn-default" id="btnpos" title="在地图上查看我的当前位置">
+                        <i class="glyphicon glyphicon-map-marker"></i>我的位置
+                    </button>
+                    <button type="button" class="btn btn-primary " id="btnNew" data-loading-text="执行中...">
+                        <i class="glyphicon glyphicon-flash"></i>立即签到
+                    </button>
+                    <button type="button" class="btn btn-default " id="btnQjia" title="因故不能按时签到，请提交请假事由">
+                        <i class="glyphicon glyphicon-pencil"></i>我要请假
+                    </button>
+                </div>
+            </div>
+
+            
+            <div class="row row-qjia myvisiable">
+                <div class="col-xs-12">
+                    <div class="form-group  panel panel-default panel-body">
+                        <label>请假事由（200字以内）：</label>
+                        <textarea id="qjReason" rows="3" class="form-control"></textarea>
+                        <br />
+                        <label>
+                            联系电话：
+                            <input type="text" id="qjPhone" class="form-control" /></label>
+                        <br />
+                        <label>
+                            预计到达时间：
+                            <input type="text" id="qjTime" class="form-control" />
+                        </label>
+                        <br />
+                        <br />
+                        <button type="button" class="btn btn-primary " id="btnQjtj" data-loading-text="执行中...">
+                            <i class="glyphicon glyphicon-ok"></i>&nbsp;提交
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            
+            <div class="row myvisiable" style="padding-top: 3px;" id="panmap">
+                <div class="col-xs-12">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="row" style="padding: 3px 8px;">
+                                <div id="map" style="height: 350px;">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <p>
+                说明：<br />
+                1. 签到功能依赖于手机系统的定位模块，签到前请检查确保您手机的GPS服务已经启用。<br />
+                2. 若WIFI无线网络拥阻，建议启用手机数据信号进行签到。<br />
+                3. 若因网络缓慢或手机定位精度问题造成无法签到，请及时联系辅导员补签。<br />
+            </p>
+        </div>
+    </div>
+    
+    <script src="resources/jquery.min.js"></script>
+    <script src="resources/mobiscroll/js/jquery.mobile-1.3.0.min.js"></script>
+    
+    <script src="resources/bootstrap/js/bootstrap.min.js"></script>
+
+    <link href="resources/mobiscroll/css/mobiscroll.custom-2.5.0.min.css" rel="stylesheet" />
+    <script src="resources/mobiscroll/js/mobiscroll.js"></script>
+    <!--[if lt IE 9]>
+    <script src="~/Frame/resources/bootstrap/js/html5shiv.js"></script>
+    <script src="~/Frame/resources/bootstrap/js/respond.min.js"></script>
+    <![endif]-->
+    <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=qFscjW8IsD1LWPugOvQG4FGD"></script>
+    <script src="resources/dmsign.js?v=219"></script>
+    <form method="post" action="./Index.aspx?sch=10712&amp;ts=22%3a18%3a43&amp;xsid=YB5764489" id="form1" style="display: none;">
+<input type="hidden" name="__VIEWSTATE" id="__VIEWSTATE" value="/wEPDwUJLTI0MzEwMjcyZGQY9koxYxY2iyh6w+q/5doSoWOvQSlQaANogtGwQ/cdZw==" />
+
+<input type="hidden" name="__VIEWSTATEGENERATOR" id="__VIEWSTATEGENERATOR" value="90059987" />
+    
+
+<script type="text/javascript">
+//<![CDATA[
+$('.main-title').text('请从易班访问！');
+//]]>
+</script>
+</form>
+</body>
+</html>
