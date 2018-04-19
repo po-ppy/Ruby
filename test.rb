@@ -13,5 +13,11 @@ ary = ary - [1,2,3,4]
 puts ary.size
 puts Float::MAX
 #puts ary.index ary.max
+puts "--------------------"
+a = 100
+b = 50
+puts "#{a} and '#{b}'"
+startTime = Time.now
+puts startTime.strftime("%Y/%m/%d ")+"17:00"
 
 
