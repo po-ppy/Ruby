@@ -7,3 +7,4 @@
 * dijkstra.rb -> 单源最短路径问题（贪心算法，dijkstra算法）
 * binaryTree/BinaryTree.rb(moudule:BinaryTree) -> 包含哈夫曼算法(huffman部分)
 ## 这是在deepin系统下的一个分支
+ruby版qqbot已经无法使用
