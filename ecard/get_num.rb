@@ -1,7 +1,9 @@
 #_*_ coding:utf-8 _*_
 require 'mini_magick'
 require 'rtesseract'
-
+#RTesseract.configure do |config|
+#  config.processor = "mini_magick"
+#end
 #img = MiniMagick::Image.new("au.jpg")
 #img.crop("#{img[:width] - 2}x#{img[:height] - 2}+1+1")
 #img.colorspace("GRAY")
@@ -10,12 +12,15 @@ require 'rtesseract'
 #puts image
 def parse_price(price_url)  
   img = MiniMagick::Image.open(price_url)  
-  img.resize '200x100'   # 放大  
+  img.resize '150%x150%'   # 放大  
+  #img.resize '156x54'   # 放大  
   img.colorspace("GRAY") # 灰度化    
   #img.monochrome         # 去色  
   #str = RTesseract.new(img.path, options: :digits).to_s # 识别  
-  str = RTesseract.new(img.path).to_s # 识别  
-  #str = RTesseract.new(img.path, processor: "mini_magick") # 识别  
+  img.write 'temp.jpg'
+  puts img.path
+  str = RTesseract.new(img.path,options: :digits).to_s # 识别  
+  #str = RTesseract.new(img.path, :processor => "mini_magick") # 识别  
   #str = str.to_s
   puts "str = #{str}%%%%%%%%"
   File.unlink(img.path)  # 删除临时文件  
@@ -23,6 +28,7 @@ def parse_price(price_url)
     puts price_url  
   else  
     price = str.strip.sub(/Y/,'')
+    #price = str
     puts "price = #{price}%%%%%%"
   end  
 end  

@@ -1,4 +1,3 @@
-#! C:\Users\poppy\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Shoes\Shoes
 #_*_ coding:utf-8 _*_
 
 require 'shoes'
