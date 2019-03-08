@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby -w
 
 CONST = ' out there'.freeze
-# hhhhh
+# test
 class Person
   CONST = proc { 'in there' }
   def where_is_my_CONST
