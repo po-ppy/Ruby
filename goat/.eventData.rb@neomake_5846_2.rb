@@ -1,0 +1,24 @@
+#!/usr/bin/env ruby
+
+require './routerDevice'
+
+connections = []
+
+deviceNum = 30
+doNum = 5
+
+deviceNum.times do |i|
+  temp = Device.new("R000#{i+1}")
+  connections << temp
+end
+
+doNum.times do
+  sleep(1)
+  connections.each do |k|
+    k.send_data(k.event_data)
+  end
+end
+
+connections.each(&:close_socket)
+
+puts "send eventData, #{doNum} times is ok!"

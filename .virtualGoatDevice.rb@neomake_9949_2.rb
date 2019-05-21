@@ -57,32 +57,12 @@ doNum.times do
   end
 end
 
-=begin
 doNum.times do
   sleep 1
   connections.each do |k|
     k.send_data(k.event_data)
   end
 end
-=end
-
-=begin
-sendCount = 0
-loop do
-  sendCount += 1
-  puts sendCount
-  sleep(59)
-  connections.each do |k|
-    k.send_data(k.normal_data)
-  end
-
-  sleep 5
-  connections.each do |k|
-    k.send_data(k.event_data)
-  end
-  
-end
-=end
 
 connections.each(&:close_socket)
 
