@@ -3,7 +3,7 @@ require './routerDevice'
 
 connections = []
 
-deviceNum = 7
+deviceNum = 9
 doNum = 50
 
 deviceNum.times do |i|
