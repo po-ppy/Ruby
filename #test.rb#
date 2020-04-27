@@ -9,6 +9,13 @@ puts max
 ary = [1,2,3,4,4,4]
 hash = { :hello => "hello_hash" , :world => "world_hash" , "haha" => "hahah_hash"}
 
+
+puts "hello"
+
+3.times do |e|
+  puts e
+end
+
 ary = ary - [1,2,3,4] 
 puts ary.size
 puts Float::MAX

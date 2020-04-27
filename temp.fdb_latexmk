@@ -1,0 +1,15 @@
+# Fdb version 3
+["pdflatex"] 1557888913 "temp.tex" "temp.pdf" "temp" 1557888913
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb" 1550406775 35752 024fb6c41858982481f6968b5fc26508 ""
+  "/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr7.pfb" 1550406775 32762 224316ccc9ad3ca0423a14971cfa7fc1 ""
+  "/usr/share/texmf-dist/tex/latex/base/article.cls" 1550406775 19933 3097d1b31d3c45dc957096f554529032 ""
+  "/usr/share/texmf-dist/tex/latex/base/size10.clo" 1550406775 8294 6d6e23d5169c0d89d173f6c7e08a005a ""
+  "/usr/share/texmf-dist/web2c/texmf.cnf" 1550406775 33301 a3134070eacafb10b1f371612ce2650d ""
+  "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1557888683 3106252 d5255ed7fd6ec6ea7699581e9a54cb46 ""
+  "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1557888677 7919196 84c6bbbef44e7ced81c711b126df69ac ""
+  "temp.aux" 1557888913 8 a94a2480d3289e625eea47cd1b285758 ""
+  "temp.tex" 1557888897 75 f94b90e339a84342d248375f4883f799 ""
+  (generated)
+  "temp.pdf"
+  "temp.aux"
+  "temp.log"
